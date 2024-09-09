@@ -22,6 +22,7 @@ function initialize(passport: PassportStatic) {
 
         try {
           if (await bcrypt.compare(password, user.password)) {
+            console.log(`Inicio de sesión exitoso para el usuario: ${email}`);
             return done(null, user);
           } else {
             return done(null, false, {

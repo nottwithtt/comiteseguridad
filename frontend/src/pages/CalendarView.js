@@ -28,6 +28,7 @@ function CalendarView() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    /*
     axios({
       method: "get",
       withCredentials: true,
@@ -37,6 +38,7 @@ function CalendarView() {
       const formattedEvents = formatEvents(response.result);
       setEvents(formattedEvents);
     });
+    */
   }, []);
 
   const formatEvents = (events) => {
