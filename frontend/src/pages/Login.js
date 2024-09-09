@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 import axios from "axios";
 import { BACKEND_ROUTE } from "../scripts/constants";
 import { sanitizeEmail } from "../scripts/data_sanitizer";
@@ -92,6 +93,15 @@ function Login() {
                         required
                       />
                       <label className="form-label">Contraseña</label>
+                    </div>
+
+                    <div className="text-center pt-1 mb-5 pb-1 d-flex flex-column">
+                      <Button
+                        text="Iniciar sesión"
+                        bootstrap="btn btn-block fa-lg mb-3"
+                        color="#73E2A7"
+                        type="submit"
+                      />
                     </div>
                   </form>
                 </div>
