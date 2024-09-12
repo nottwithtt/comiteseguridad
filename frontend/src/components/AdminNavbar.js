@@ -24,8 +24,8 @@ function AdminNavbar() {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto mb-3 mb-lg-3">
             <li className="nav-item me-4 mt-3">
-              <Link to="/admin_menu" className="nav-link text-white">
-                Menú principal
+              <Link to="/calendar" className="nav-link text-white">
+                Agenda
               </Link>
             </li>
           </ul>

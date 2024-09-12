@@ -43,7 +43,7 @@ function Login() {
       setShowModal(true);
       setError(true);
     } else {
-      window.location.href = "/login";
+      window.location.href = "/calendar";
     }
   };
 
