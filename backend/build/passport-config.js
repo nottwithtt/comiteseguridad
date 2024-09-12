@@ -64,6 +64,7 @@ function initialize(passport) {
                     return [4 /*yield*/, bcrypt.compare(password, user.password)];
                 case 3:
                     if (_a.sent()) {
+                        console.log("Inicio de sesi\u00F3n exitoso para el usuario: ".concat(email));
                         return [2 /*return*/, done(null, user)];
                     }
                     else {

@@ -80,15 +80,9 @@ app.use(passport.session());
 initializePassport(passport);
 console.log("Passport initialized and session middleware configured.");
 app.enable("trust proxy");
-app.use(function (req, res, next) {
-    console.log("Session info:", req.session);
-    console.log("Cookies:", req.cookies);
-    next();
-});
 // Rutas ----------------------------------------------------------------------------------------
 app.post("/login", passport.authenticate("local"), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        console.log("Session after login:", req.session); // Verifica si la sesión se actualiza
         res.send(JSON.stringify({ error: false, message: "SUCCESS_LOGIN" }));
         return [2 /*return*/];
     });
