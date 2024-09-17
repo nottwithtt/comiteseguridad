@@ -8,7 +8,7 @@ function UserNavbar() {
   return (
     <nav
       className="navbar navbar-expand-lg"
-      style={{ backgroundColor: "#1C7C54" }}
+      style={{ backgroundColor: "#A7867D" }}
     >
       <div className="container">
         <div className="collapse navbar-collapse">
