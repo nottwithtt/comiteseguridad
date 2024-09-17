@@ -99,7 +99,7 @@ function Login() {
                       <Button
                         text="Iniciar sesión"
                         bootstrap="btn btn-block fa-lg mb-3"
-                        color="#73E2A7"
+                        color="#A7867D"
                         type="submit"
                       />
                     </div>
@@ -108,14 +108,14 @@ function Login() {
               </div>
               <div
                 className="col-lg-6 d-flex flex-column"
-                style={{ backgroundColor: "#1C7C54" }}
+                style={{ backgroundColor: "#FFFFFF" }}
               >
                 <div className="px-3 py-1 mt-3">
                   <div className="d-flex flex-column align-items-center justify-content-center pb-4">
                     <Link
                       to="/calendar"
                       className="btn"
-                      style={{ backgroundColor: "#73E2A7", width: "150px" }}
+                      style={{ backgroundColor: "#A7867D", width: "150px" }}
                     >
                       Regresar
                     </Link>
