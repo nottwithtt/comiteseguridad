@@ -13,7 +13,7 @@ function EventView() {
     axios({
       method: "get",
       withCredentials: true,
-      url: BACKEND_ROUTE + "/admin/get_event/" + id,
+      url: BACKEND_ROUTE + "/general/get_event/" + id,
     }).then((res) => {
       const response = res.data;
       setEvent(response.result);
@@ -26,13 +26,13 @@ function EventView() {
         {event ? (
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">{event.type}</h5>
+              <h5 className="card-title">{event.name}</h5>
               <p className="card-text">{event.description}</p>
               <p className="card-text">
                 Fecha: {new Date(event.date).toLocaleDateString()} a las{" "}
                 {new Date(event.date).toLocaleTimeString()}
               </p>
-              <p className="card-text">Duración: {event.duration} horas</p>
+              <p className="card-text">Duración: {event.durationinhours} horas</p>
               {event.customFields && event.customFields.length > 0 ? (
                 <>
                   <p className="card-text fw-bolder">

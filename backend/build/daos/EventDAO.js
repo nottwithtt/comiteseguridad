@@ -35,53 +35,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Controller = void 0;
-var UserAdmin_1 = require("./UserAdmin");
-var EventAdmin_1 = require("./EventAdmin");
-var Controller = /** @class */ (function () {
-    function Controller() {
-        this.userAdmin = new UserAdmin_1.UserAdmin();
-        this.eventAdmin = new EventAdmin_1.EventAdmin();
+exports.EventDAO = void 0;
+var eventS_1 = __importDefault(require("../schemas/eventS"));
+var EventDAO = /** @class */ (function () {
+    function EventDAO() {
     }
-    Controller.getInstance = function () {
-        if (!Controller.instance) {
-            Controller.instance = new Controller();
-        }
-        return Controller.instance;
-    };
-    // Verifica si existe el usuario con el email del parámetro
-    Controller.prototype.userExists = function (email) {
+    // Retorna un usuario por id
+    EventDAO.prototype.getEventByID = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.userAdmin.userExists(email)];
+                    case 0: return [4 /*yield*/, eventS_1.default.findOne({ _id: id })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    Controller.prototype.getEvent = function (id) {
+    EventDAO.prototype.createEvent = function (myevent) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.eventAdmin.getEvent(id)];
+                    case 0: return [4 /*yield*/, eventS_1.default.create(myevent)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    Controller.prototype.createEvent = function (myevent) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.eventAdmin.createEvent(myevent)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    Controller.instance = null;
-    return Controller;
+    return EventDAO;
 }());
-exports.Controller = Controller;
+exports.EventDAO = EventDAO;

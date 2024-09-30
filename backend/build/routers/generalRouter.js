@@ -35,9 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var router = require("express").Router();
 var Controller_1 = require("../controllers/Controller");
+var Event_1 = __importDefault(require("../models/Event"));
 var controller = Controller_1.Controller.getInstance();
 // Rutas de usuario -----------------------------------------------------------------------
 router.get("/check_email_exists", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -63,6 +67,68 @@ router.get("/check_email_exists", function (req, res) { return __awaiter(void 0,
                 res.send(JSON.stringify({
                     error: true,
                     message: "Ocurrió un error inesperado, intente de nuevo",
+                }));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/get_event/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, result, e_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.getEvent(id)];
+            case 2:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Evento encontrado",
+                    result: result,
+                }));
+                return [3 /*break*/, 4];
+            case 3:
+                e_2 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error desconocido",
+                }));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/create_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name, description, durationinhours, date, event, result, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                name = req.body.name;
+                description = req.body.description;
+                durationinhours = parseInt(req.body.durationinhours);
+                date = new Date(req.body.date);
+                event = new Event_1.default(name, description, date, durationinhours);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.createEvent(event)];
+            case 2:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Evento creado",
+                    result: result,
+                }));
+                return [3 /*break*/, 4];
+            case 3:
+                e_3 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error desconocido",
                 }));
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];

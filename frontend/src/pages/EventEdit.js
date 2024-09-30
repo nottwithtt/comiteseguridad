@@ -24,11 +24,11 @@ function EventEdit() {
     axios({
       method: "get",
       withCredentials: true,
-      url: BACKEND_ROUTE + "/admin/get_event/" + id,
+      url: BACKEND_ROUTE + "/general/get_event/" + id,
     }).then((res) => {
       const response = res.data;
       const event = response.result;
-      setType(event.type);
+      setType(event.name);
       setDescription(event.description);
       setDate(format(new Date(event.date), "yyyy-MM-dd'T'HH:mm"));
       setDuration(event.duration);

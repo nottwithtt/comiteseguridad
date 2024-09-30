@@ -52,12 +52,12 @@ function CreateEvent() {
       method: "post",
       data: {
         date: date,
-        duration: duration,
+        durationinhours: duration,
         description: description,
-        type: type,
+        name: type,
       },
       withCredentials: true,
-      url: BACKEND_ROUTE + "/admin/register_event",
+      url: BACKEND_ROUTE + "/general/create_event",create_event
     }).then((res) => {
       const response = res.data;
       setError(response.error);
