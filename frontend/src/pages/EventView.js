@@ -25,7 +25,7 @@ function EventView() {
     <UserWindow >
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <div style={{width: "50%"}}>
-          <h4>{new Date(event.date).toLocaleDateString()}</h4>
+          <h4>{new Date(event?.date).toLocaleDateString()}</h4>
         </div>
         <div className="mt-4 mb-4" style={{width: "50%"}}>
           {event ? (
