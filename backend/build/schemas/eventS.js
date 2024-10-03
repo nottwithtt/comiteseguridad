@@ -10,5 +10,6 @@ var eventSchema = new mongoose_1.Schema({
     description: { type: String, required: true },
     date: { type: Date, required: true },
     durationinhours: { type: Number, required: true },
+    dateend: { type: Date, required: true }
 });
 exports.default = mongoose_2.default.model("Event", eventSchema);

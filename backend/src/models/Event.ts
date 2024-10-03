@@ -3,15 +3,14 @@ export default class Event {
     private name: string;
     private description: string;
     private date: Date;
-    private durationinhours: Number;
+    private durationinhours: number;
     
     constructor(
       name: string,
       description: string,
       date: Date,
-      durationinhours?: Number,
+      durationinhours?: number,
       eventId?: string
-      
     ) {
       this.name = name;
       this.description = description;
@@ -36,7 +35,7 @@ export default class Event {
         return this.date;
     }
 
-    public getDurationInHours(): Number {
+    public getDurationInHours(): number {
         return this.durationinhours;
     }
 
@@ -57,7 +56,7 @@ export default class Event {
         this.date = date;
     }
 
-    public setDurationInHours(durationinhours: Number): void {
+    public setDurationInHours(durationinhours: number): void {
         this.durationinhours = durationinhours;
     }
   }

@@ -43,56 +43,31 @@ var router = require("express").Router();
 var Controller_1 = require("../controllers/Controller");
 var Event_1 = __importDefault(require("../models/Event"));
 var controller = Controller_1.Controller.getInstance();
-// Rutas de usuario -----------------------------------------------------------------------
-router.get("/check_email_exists", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var email, result, e_1;
+router.post("/event_overlaps", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name, description, durationinhours, date, eventid, event, result, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                email = req.query.email;
+                name = req.body.name;
+                description = req.body.description;
+                durationinhours = parseInt(req.body.durationinhours);
+                date = new Date(req.body.date);
+                eventid = req.body.eventId;
+                event = new Event_1.default(name, description, date, durationinhours, eventid);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, controller.userExists(email)];
+                return [4 /*yield*/, controller.checkOverlap(event)];
             case 2:
                 result = _a.sent();
                 res.send(JSON.stringify({
                     error: false,
-                    message: "Correo electrónico verificado exitosamente",
+                    message: "Comprobación realizada",
                     result: result,
                 }));
                 return [3 /*break*/, 4];
             case 3:
                 e_1 = _a.sent();
-                res.send(JSON.stringify({
-                    error: true,
-                    message: "Ocurrió un error inesperado, intente de nuevo",
-                }));
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); });
-router.get("/get_event/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, e_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, controller.getEvent(id)];
-            case 2:
-                result = _a.sent();
-                res.send(JSON.stringify({
-                    error: false,
-                    message: "Evento encontrado",
-                    result: result,
-                }));
-                return [3 /*break*/, 4];
-            case 3:
-                e_2 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error desconocido",
@@ -103,7 +78,7 @@ router.get("/get_event/:id", function (req, res) { return __awaiter(void 0, void
     });
 }); });
 router.post("/create_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, description, durationinhours, date, event, result, e_3;
+    var name, description, durationinhours, date, event, result, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -125,7 +100,71 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
                 }));
                 return [3 /*break*/, 4];
             case 3:
+                e_2 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error desconocido",
+                }));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.post("/update_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var name, description, durationinhours, date, eventid, event, result, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                name = req.body.name;
+                description = req.body.description;
+                durationinhours = parseInt(req.body.durationinhours);
+                date = new Date(req.body.date);
+                eventid = req.body.eventId;
+                event = new Event_1.default(name, description, date, durationinhours, eventid);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.updateEvent(event)];
+            case 2:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Comprobación realizada",
+                    result: result,
+                }));
+                return [3 /*break*/, 4];
+            case 3:
                 e_3 = _a.sent();
+                console.error(e_3);
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error desconocido",
+                }));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.post("/delete_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var eventid, result, e_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                eventid = req.body.eventId;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.deleteEvent(eventid)];
+            case 2:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Comprobación realizada",
+                    result: result,
+                }));
+                return [3 /*break*/, 4];
+            case 3:
+                e_4 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error desconocido",

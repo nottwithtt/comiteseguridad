@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,6 +52,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventDAO = void 0;
 var eventS_1 = __importDefault(require("../schemas/eventS"));
+var dayjs_1 = __importDefault(require("dayjs"));
 var EventDAO = /** @class */ (function () {
     function EventDAO() {
     }
@@ -59,8 +71,47 @@ var EventDAO = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, eventS_1.default.create(myevent)];
+                    case 0: return [4 /*yield*/, eventS_1.default.create(__assign(__assign({}, myevent), { dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours") }))];
                     case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    EventDAO.prototype.updateEvent = function (myevent) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, eventS_1.default.findByIdAndUpdate(myevent.getEventId(), __assign(__assign({}, myevent), { dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours") }), { new: true })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    EventDAO.prototype.deleteEvent = function (eventid) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, eventS_1.default.deleteOne({ _id: eventid })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    EventDAO.prototype.checkOverlap = function (myevent) {
+        return __awaiter(this, void 0, void 0, function () {
+            var mydatestart, mydateend;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        mydatestart = myevent.getDate();
+                        mydateend = (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours");
+                        return [4 /*yield*/, eventS_1.default.find({ date: { $lt: mydateend },
+                                dateend: { $gt: mydatestart },
+                                _id: {
+                                    $ne: myevent.getEventId()
+                                }
+                            })];
+                    case 1: return [2 /*return*/, (_a.sent()).length > 0];
                 }
             });
         });

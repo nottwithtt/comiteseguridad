@@ -81,6 +81,36 @@ var Controller = /** @class */ (function () {
             });
         });
     };
+    Controller.prototype.updateEvent = function (myevent) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.eventAdmin.updateEvent(myevent)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.deleteEvent = function (eventid) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.eventAdmin.deleteEvent(eventid)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.checkOverlap = function (myevent) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.eventAdmin.checkOverlap(myevent)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     Controller.instance = null;
     return Controller;
 }());

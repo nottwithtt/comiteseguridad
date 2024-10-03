@@ -30,6 +30,18 @@ class Controller {
     return await this.eventAdmin.createEvent(myevent);
   }
 
+  public async updateEvent(myevent: EventModel) {
+    return await this.eventAdmin.updateEvent(myevent);
+  }
+
+  public async deleteEvent(eventid: string) {
+    return await this.eventAdmin.deleteEvent(eventid);
+  }
+
+  public async checkOverlap(myevent: EventModel){
+    return await this.eventAdmin.checkOverlap(myevent);
+  }
+
 }
 
 export { Controller };

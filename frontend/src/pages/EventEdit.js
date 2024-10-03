@@ -31,7 +31,7 @@ function EventEdit() {
       setType(event.name);
       setDescription(event.description);
       setDate(format(new Date(event.date), "yyyy-MM-dd'T'HH:mm"));
-      setDuration(event.duration);
+      setDuration(event.durationinhours);
     });
   }, [id]);
 
@@ -42,9 +42,9 @@ function EventEdit() {
       data: {
         eventId: id,
         date: date,
-        duration: duration,
+        durationinhours: duration,
         description: description,
-        type: type,
+        name: type,
       },
       withCredentials: true,
       url: BACKEND_ROUTE + "/admin/event_overlaps",
@@ -72,9 +72,9 @@ function EventEdit() {
       data: {
         eventId: id,
         date: date,
-        duration: duration,
+        durationinhours: duration,
         description: description,
-        type: type,
+        name: type,
       },
       withCredentials: true,
       url: BACKEND_ROUTE + "/admin/update_event",
@@ -118,7 +118,13 @@ function EventEdit() {
         close={closeModal}
         error={error}
       ></MessageModal>
-      <div className="mt-4 mb-4">
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+        <h4>{new Date(date).toLocaleDateString()}</h4>
+        {/*<h4>{new Date(event.date).toLocaleDateString()}</h4>*/}
+      <div style={{width: "50%"}}>
+        
+      </div>
+      <div className="mt-4 mb-4" style={{width: "50%"}}>
         <div>
           <form
             id="updateEventForm"
@@ -200,6 +206,7 @@ function EventEdit() {
             Regresar
           </Link>
         </div>
+      </div>
       </div>
     </AdminWindow>
   );

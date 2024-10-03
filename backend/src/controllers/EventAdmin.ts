@@ -13,6 +13,15 @@ class EventAdmin {
   public async createEvent(myevent: EventModel){
     return await this.eventDAO.createEvent(myevent);
   }
+  public async updateEvent(myevent: EventModel) {
+    return await this.eventDAO.updateEvent(myevent);
+  }
+  public async deleteEvent(eventid: string) {
+    return await this.eventDAO.deleteEvent(eventid);
+  }
+  public async checkOverlap(myevent: EventModel){
+    return await this.eventDAO.checkOverlap(myevent);
+  }
 }
 
 export { EventAdmin };

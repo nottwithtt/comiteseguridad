@@ -9,6 +9,7 @@ import { Database } from "./mongo-config";
 const databaseInstance = Database.getInstance();
 databaseInstance.connect();
 const generalRouter = require("./routers/generalRouter");
+const adminRouter = require("./routers/adminRouter");
 import express from "express";
 const expressStatic = express.static;
 import { Controller } from "./controllers/Controller";
@@ -67,5 +68,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
+app.use("/admin", adminRouter);
 app.use("/general", generalRouter);
+
 app.listen(port);

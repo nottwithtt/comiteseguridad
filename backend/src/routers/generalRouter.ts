@@ -49,7 +49,7 @@ router.get("/get_event/:id", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/create_event", async (req: Request, res: Response) => {
+router.post("/create_event", async (req: Request, res: Response) => {
   
     
   let name = req.body.name as string;

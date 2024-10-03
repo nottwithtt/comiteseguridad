@@ -23,9 +23,9 @@ function CreateEvent() {
       data: {
         eventId: "",
         date: date,
-        duration: duration,
+        durationinhours: duration,
         description: description,
-        type: type,
+        name: type,
       },
       withCredentials: true,
       url: BACKEND_ROUTE + "/admin/event_overlaps",
@@ -57,7 +57,7 @@ function CreateEvent() {
         name: type,
       },
       withCredentials: true,
-      url: BACKEND_ROUTE + "/general/create_event",create_event
+      url: BACKEND_ROUTE + "/admin/create_event",
     }).then((res) => {
       const response = res.data;
       setError(response.error);

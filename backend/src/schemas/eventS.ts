@@ -6,6 +6,7 @@ const eventSchema: Schema = new Schema({
   description: { type: String, required: true },
   date: { type: Date, required: true },
   durationinhours: { type: Number, required: true },
+  dateend: {type: Date, required: true}
 });
 
 export type eventT = InferSchemaType<typeof eventSchema>;

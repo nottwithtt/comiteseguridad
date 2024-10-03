@@ -50,6 +50,7 @@ var mongo_config_1 = require("./mongo-config");
 var databaseInstance = mongo_config_1.Database.getInstance();
 databaseInstance.connect();
 var generalRouter = require("./routers/generalRouter");
+var adminRouter = require("./routers/adminRouter");
 var express_1 = __importDefault(require("express"));
 var expressStatic = express_1.default.static;
 var initializePassport = require("./passport-config");
@@ -99,5 +100,6 @@ app.get("/logout", function (req, res) {
         res.send(JSON.stringify({ error: false, message: "SUCCESS_LOGOUT" }));
     });
 });
+app.use("/admin", adminRouter);
 app.use("/general", generalRouter);
 app.listen(port);
