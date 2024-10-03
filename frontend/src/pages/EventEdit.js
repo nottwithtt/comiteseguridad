@@ -120,7 +120,6 @@ function EventEdit() {
       ></MessageModal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <h4>{new Date(date).toLocaleDateString()}</h4>
-        {/*<h4>{new Date(event.date).toLocaleDateString()}</h4>*/}
       <div style={{width: "50%"}}>
         
       </div>

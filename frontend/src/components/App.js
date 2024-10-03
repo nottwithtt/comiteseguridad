@@ -18,7 +18,7 @@ function App() {
         <Route
           path="/view_event/:id"
           element={
-            <Protected ctx={ctx} loggedIn={true} forRole={2}>
+            <Protected ctx={ctx} loggedIn={!true} forRole={2}>
               <EventView />
             </Protected>
           }
@@ -26,7 +26,7 @@ function App() {
         <Route
           path="/edit_event/:id"
           element={
-            <Protected ctx={ctx} loggedIn={true} forRole={2}>
+            <Protected ctx={ctx} loggedIn={!true} forRole={2}>
               <EventEdit />
             </Protected>
           }
@@ -34,7 +34,7 @@ function App() {
         <Route
           path="/register_event"
           element={
-            <Protected ctx={ctx} loggedIn={true} forRole={2}>
+            <Protected ctx={ctx} loggedIn={!true} forRole={2}>
               <CreateEvent />
             </Protected>
           }
@@ -42,7 +42,7 @@ function App() {
         <Route
           path="/calendar"
           element={
-            <Protected ctx={ctx} loggedIn={true} forRole={2}>
+            <Protected ctx={ctx} loggedIn={!true} forRole={2}>
               <CalendarView />
             </Protected>
           }
