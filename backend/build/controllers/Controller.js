@@ -113,11 +113,22 @@ var Controller = /** @class */ (function () {
             });
         });
     };
-    Controller.prototype.createAcuerdo = function (numeroOrden, descripcion, estado) {
+    Controller.prototype.getAllEvents = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.acuerdoAdmin.createAcuerdo(numeroOrden, descripcion, estado)];
+                    case 0: return [4 /*yield*/, this.eventAdmin.getAllEvents()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.createAcuerdo = function (numeroOrden, descripcion, estado, eventoId // Add eventoId parameter
+    ) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.createAcuerdo(numeroOrden, descripcion, estado, eventoId)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -148,7 +159,17 @@ var Controller = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.acuerdoAdmin.getAcuerdo(id)];
-                    case 1: return [2 /*return*/, _a.sent()]; //
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.getAcuerdosByEventoId = function (eventoId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.getAcuerdosByEventoId(eventoId)];
+                    case 1: return [2 /*return*/, _a.sent()];
                 }
             });
         });

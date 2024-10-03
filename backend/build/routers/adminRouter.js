@@ -44,7 +44,7 @@ var Controller_1 = require("../controllers/Controller");
 var Event_1 = __importDefault(require("../models/Event"));
 var controller = Controller_1.Controller.getInstance();
 router.post("/event_overlaps", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, description, durationinhours, date, eventid, event, result, e_1;
+    var name, description, durationinhours, date, eventid, acuerdos, event, result, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -53,7 +53,8 @@ router.post("/event_overlaps", function (req, res) { return __awaiter(void 0, vo
                 durationinhours = parseInt(req.body.durationinhours);
                 date = new Date(req.body.date);
                 eventid = req.body.eventId;
-                event = new Event_1.default(name, description, date, durationinhours, eventid);
+                acuerdos = [];
+                event = new Event_1.default(name, description, date, durationinhours, acuerdos, eventid);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -78,7 +79,7 @@ router.post("/event_overlaps", function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 router.post("/create_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, description, durationinhours, date, event, result, e_2;
+    var name, description, durationinhours, date, eventid, acuerdos, event, result, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -86,7 +87,9 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
                 description = req.body.description;
                 durationinhours = parseInt(req.body.durationinhours);
                 date = new Date(req.body.date);
-                event = new Event_1.default(name, description, date, durationinhours);
+                eventid = req.body.eventId;
+                acuerdos = [];
+                event = new Event_1.default(name, description, date, durationinhours, acuerdos, eventid);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -111,7 +114,7 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
     });
 }); });
 router.post("/update_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, description, durationinhours, date, eventid, event, result, e_3;
+    var name, description, durationinhours, date, eventid, acuerdos, event, result, e_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -120,7 +123,8 @@ router.post("/update_event", function (req, res) { return __awaiter(void 0, void
                 durationinhours = parseInt(req.body.durationinhours);
                 date = new Date(req.body.date);
                 eventid = req.body.eventId;
-                event = new Event_1.default(name, description, date, durationinhours, eventid);
+                acuerdos = [];
+                event = new Event_1.default(name, description, date, durationinhours, acuerdos, eventid);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -174,97 +178,131 @@ router.post("/delete_event", function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
-router.get("/get_acuerdo/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, e_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, controller.getAcuerdo(id)];
-            case 2:
-                result = _a.sent();
-                res.send(JSON.stringify({
-                    error: false,
-                    message: "Acuerdo encontrado",
-                    result: result,
-                }));
-                return [3 /*break*/, 4];
-            case 3:
-                e_5 = _a.sent();
-                res.send(JSON.stringify({
-                    error: true,
-                    message: "Error desconocido",
-                }));
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); });
 router.post("/create_acuerdo", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, numeroOrden, descripcion, estado, result, e_6;
+    var _a, numeroOrden, descripcion, estado, eventoId, newAcuerdo, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, numeroOrden = _a.numeroOrden, descripcion = _a.descripcion, estado = _a.estado;
+                _a = req.body, numeroOrden = _a.numeroOrden, descripcion = _a.descripcion, estado = _a.estado, eventoId = _a.eventoId;
+                // Validate required fields
+                if (!numeroOrden || !descripcion || !estado || !eventoId) {
+                    return [2 /*return*/, res.status(400).json({
+                            error: true,
+                            message: "numeroOrden, descripcion, estado, and eventoId are required.",
+                        })];
+                }
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, controller.createAcuerdo(parseInt(numeroOrden), descripcion, estado)];
+                return [4 /*yield*/, controller.createAcuerdo(parseInt(numeroOrden), // Parse to number if necessary
+                    descripcion, estado, eventoId // Pass eventoId
+                    )];
             case 2:
-                result = _b.sent();
-                res.send(JSON.stringify({
-                    error: false,
-                    message: "Acuerdo creado",
-                    result: result,
-                }));
-                return [3 /*break*/, 4];
+                newAcuerdo = _b.sent();
+                return [2 /*return*/, res.status(201).json({
+                        error: false,
+                        message: "Acuerdo creado exitosamente",
+                        result: newAcuerdo,
+                    })];
             case 3:
-                e_6 = _b.sent();
-                res.send(JSON.stringify({
-                    error: true,
-                    message: "Error desconocido",
-                }));
-                return [3 /*break*/, 4];
+                error_1 = _b.sent();
+                console.error(error_1); // Log the error for debugging purposes
+                return [2 /*return*/, res.status(500).json({
+                        error: true,
+                        message: "Error al crear el acuerdo",
+                    })];
             case 4: return [2 /*return*/];
         }
     });
 }); });
 router.put("/update_acuerdo/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, _a, numeroOrden, descripcion, estado, result, e_7;
+    var id, _a, numeroOrden, descripcion, estado, result, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 id = req.params.id;
                 _a = req.body, numeroOrden = _a.numeroOrden, descripcion = _a.descripcion, estado = _a.estado;
+                // Validate required fields
+                if (!numeroOrden || !descripcion || !estado) {
+                    return [2 /*return*/, res.status(400).json({
+                            error: true,
+                            message: "numeroOrden, descripcion, and estado are required.",
+                        })];
+                }
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, controller.updateAcuerdo(id, parseInt(numeroOrden), descripcion, estado)];
             case 2:
                 result = _b.sent();
-                res.send(JSON.stringify({
-                    error: false,
-                    message: "Acuerdo actualizado",
-                    result: result,
-                }));
-                return [3 /*break*/, 4];
+                // Check if the update was successful
+                if (!result) {
+                    return [2 /*return*/, res.status(404).json({
+                            error: true,
+                            message: "Acuerdo not found or could not be updated.",
+                        })];
+                }
+                return [2 /*return*/, res.status(200).json({
+                        error: false,
+                        message: "Acuerdo actualizado",
+                        result: result,
+                    })];
             case 3:
-                e_7 = _b.sent();
-                res.send(JSON.stringify({
-                    error: true,
-                    message: "Error al actualizar el acuerdo",
-                }));
-                return [3 /*break*/, 4];
+                error_2 = _b.sent();
+                console.error(error_2); // Log the error for debugging purposes
+                return [2 /*return*/, res.status(500).json({
+                        error: true,
+                        message: "Error al actualizar el acuerdo",
+                    })];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/acuerdos_evento/:eventoId", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var eventoId, acuerdos, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                eventoId = req.params.eventoId;
+                // Validate the eventoId
+                if (!eventoId) {
+                    return [2 /*return*/, res.status(400).json({
+                            error: true,
+                            message: "eventoId is required.",
+                        })];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.getAcuerdosByEventoId(eventoId)];
+            case 2:
+                acuerdos = _a.sent();
+                if (acuerdos.length === 0) {
+                    return [2 /*return*/, res.status(404).json({
+                            error: false,
+                            message: "No Acuerdos found for the given eventoId.",
+                            result: [],
+                        })];
+                }
+                return [2 /*return*/, res.status(200).json({
+                        error: false,
+                        message: "Acuerdos retrieved successfully.",
+                        result: acuerdos,
+                    })];
+            case 3:
+                error_3 = _a.sent();
+                console.error(error_3); // Log the error for debugging purposes
+                return [2 /*return*/, res.status(500).json({
+                        error: true,
+                        message: "Error retrieving Acuerdos.",
+                    })];
             case 4: return [2 /*return*/];
         }
     });
 }); });
 // Delete Acuerdo
 router.delete("/delete_acuerdo/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, e_8;
+    var id, result, e_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -282,7 +320,7 @@ router.delete("/delete_acuerdo/:id", function (req, res) { return __awaiter(void
                 }));
                 return [3 /*break*/, 4];
             case 3:
-                e_8 = _a.sent();
+                e_5 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error al eliminar el acuerdo",
@@ -293,7 +331,7 @@ router.delete("/delete_acuerdo/:id", function (req, res) { return __awaiter(void
     });
 }); });
 router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, e_9;
+    var result, e_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -308,7 +346,7 @@ router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, v
                 }));
                 return [3 /*break*/, 3];
             case 2:
-                e_9 = _a.sent();
+                e_6 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error al obtener la lista de acuerdos",
@@ -319,7 +357,7 @@ router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, v
     });
 }); });
 router.get("/check_order_number_exists", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var numeroOrden, result, e_10;
+    var numeroOrden, result, e_7;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -337,7 +375,7 @@ router.get("/check_order_number_exists", function (req, res) { return __awaiter(
                 }));
                 return [3 /*break*/, 4];
             case 3:
-                e_10 = _a.sent();
+                e_7 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error al verificar el número de orden",

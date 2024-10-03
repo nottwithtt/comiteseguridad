@@ -8,7 +8,8 @@ var mongoose_2 = __importDefault(require("mongoose"));
 var acuerdoSchema = new mongoose_1.Schema({
     numeroOrden: { type: Number, required: true },
     descripcion: { type: String, required: true },
-    estado: { type: String, enum: ["pendiente", "completado"], required: true },
+    eventoId: { type: String, required: true },
+    estado: { type: String, enum: ["Pendiente", "Completado"], required: true },
 });
 // Export model
 exports.default = mongoose_2.default.model("Acuerdo", acuerdoSchema);

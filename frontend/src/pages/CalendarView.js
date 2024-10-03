@@ -28,17 +28,17 @@ function CalendarView() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    /*
+    
     axios({
       method: "get",
       withCredentials: true,
-      url: BACKEND_ROUTE + "/admin/get_events",
+      url: BACKEND_ROUTE + "/general/get_events",
     }).then((res) => {
       const response = res.data;
       const formattedEvents = formatEvents(response.result);
       setEvents(formattedEvents);
     });
-    */
+    
   }, []);
 
   const formatEvents = (events) => {
@@ -49,8 +49,8 @@ function CalendarView() {
 
       const formattedEvent = {
         start: new Date(event.date),
-        end: addHours(new Date(event.date), event.duration),
-        title: event.type,
+        end: addHours(new Date(event.date), event.durationinhours),
+        title: event.name,
         url: "/view_event/" + event._id,
       };
 

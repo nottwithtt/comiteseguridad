@@ -11,6 +11,11 @@ class EventDAO {
   }
 
 
+  public async getAllEvents() {
+    return await Event.find(); 
+  }
+
+
   public async createEvent(myevent: EventModel) {
     return await Event.create({
       name: myevent.getName(),

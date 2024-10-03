@@ -1,15 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import format from "date-fns/format";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import getDay from "date-fns/getDay";
+import enUS from "date-fns/locale/en-US";
+import { addHours } from "date-fns";
+import Event from "../components/Event";
 import axios from "axios";
 import { BACKEND_ROUTE } from "../scripts/constants";
 //import AdminWindow from "../components/AdminWindow";
 import { Link } from "react-router-dom";
 import UserWindow from "../components/UserWindow";
 
+
+const locales = {
+  "en-US": enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
 function EventView() {
   const [event, setEvent] = useState(null);
   const { id } = useParams(null);
   const [acuerdos, setAcuerdos] = useState([]); 
+  const [events, setEvents] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     axios({
@@ -19,6 +42,9 @@ function EventView() {
     }).then((res) => {
       const response = res.data;
       setEvent(response.result);
+      if (response.result) {
+        setDate(new Date(response.result.date)); 
+      }
     });
 
     axios({
@@ -31,13 +57,57 @@ function EventView() {
         setAcuerdos(response.result);
       }
     });
+
+    axios({
+      method: "get",
+      withCredentials: true,
+      url: BACKEND_ROUTE + "/general/get_events",
+    }).then((res) => {
+      const response = res.data;
+      const formattedEvents = formatEvents(response.result);
+      setEvents(formattedEvents);
+    });
+
   }, [id]);
+  
+  const formatEvents = (events) => {
+    const formattedEvents = [];
+
+    for (let i = 0; i < events.length; i++) {
+      const event = events[i];
+
+      const formattedEvent = {
+        start: new Date(event.date),
+        end: addHours(new Date(event.date), event.durationinhours),
+        title: event.name,
+        url: "/view_event/" + event._id,
+      };
+
+      formattedEvents.push(formattedEvent);
+    }
+
+    return formattedEvents;
+  };
 
   return (
     <UserWindow >
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <div style={{width: "50%"}}>
-          <h4>{new Date(event?.date).toLocaleDateString()}</h4>
+          
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            components={{
+              event: Event,
+            }}
+            views={['day']} 
+            defaultView="day" 
+            date={date} 
+            onNavigate={(newDate) => setDate(newDate)} 
+          />
         </div>
         <div className="mt-4 mb-4" style={{width: "50%"}}>
           {event ? (

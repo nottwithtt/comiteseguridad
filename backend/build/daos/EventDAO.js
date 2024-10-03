@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -56,12 +45,21 @@ var dayjs_1 = __importDefault(require("dayjs"));
 var EventDAO = /** @class */ (function () {
     function EventDAO() {
     }
-    // Retorna un usuario por id
     EventDAO.prototype.getEventByID = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, eventS_1.default.findOne({ _id: id })];
+                    case 0: return [4 /*yield*/, eventS_1.default.findOne({ _id: id }).populate("acuerdos")];
+                    case 1: return [2 /*return*/, _a.sent()]; // acuerdos
+                }
+            });
+        });
+    };
+    EventDAO.prototype.getAllEvents = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, eventS_1.default.find()];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -71,7 +69,14 @@ var EventDAO = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, eventS_1.default.create(__assign(__assign({}, myevent), { dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours") }))];
+                    case 0: return [4 /*yield*/, eventS_1.default.create({
+                            name: myevent.getName(),
+                            description: myevent.getDescription(),
+                            date: myevent.getDate(),
+                            durationinhours: myevent.getDurationInHours(),
+                            acuerdos: myevent.getAcuerdos(),
+                            dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours").toDate(),
+                        })];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -81,7 +86,14 @@ var EventDAO = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, eventS_1.default.findByIdAndUpdate(myevent.getEventId(), __assign(__assign({}, myevent), { dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours") }), { new: true })];
+                    case 0: return [4 /*yield*/, eventS_1.default.findByIdAndUpdate(myevent.getEventId(), {
+                            name: myevent.getName(),
+                            description: myevent.getDescription(),
+                            date: myevent.getDate(),
+                            durationinhours: myevent.getDurationInHours(),
+                            acuerdos: myevent.getAcuerdos(),
+                            dateend: (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours").toDate(),
+                        }, { new: true }).populate("acuerdos")];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -105,11 +117,10 @@ var EventDAO = /** @class */ (function () {
                     case 0:
                         mydatestart = myevent.getDate();
                         mydateend = (0, dayjs_1.default)(myevent.getDate()).add(myevent.getDurationInHours(), "hours");
-                        return [4 /*yield*/, eventS_1.default.find({ date: { $lt: mydateend },
+                        return [4 /*yield*/, eventS_1.default.find({
+                                date: { $lt: mydateend.toDate() },
                                 dateend: { $gt: mydatestart },
-                                _id: {
-                                    $ne: myevent.getEventId()
-                                }
+                                _id: { $ne: myevent.getEventId() }, // Exclude the current event if updating
                             })];
                     case 1: return [2 /*return*/, (_a.sent()).length > 0];
                 }

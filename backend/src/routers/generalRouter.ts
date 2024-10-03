@@ -50,6 +50,26 @@ router.get("/get_event/:id", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/get_events", async (req: Request, res: Response) => {
+  try {
+    const result = await controller.getAllEvents(); // Llamada al controlador para obtener los eventos
+    res.send(
+      JSON.stringify({
+        error: false,
+        message: "Eventos encontrados",
+        result: result,
+      })
+    );
+  } catch (e) {
+    res.send(
+      JSON.stringify({
+        error: true,
+        message: "Error al obtener los eventos",
+      })
+    );
+  }
+});
+
 router.post("/create_event", async (req: Request, res: Response) => {
   
     

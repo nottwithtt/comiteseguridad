@@ -102,8 +102,34 @@ router.get("/get_event/:id", function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+router.get("/get_events", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, controller.getAllEvents()];
+            case 1:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Eventos encontrados",
+                    result: result,
+                }));
+                return [3 /*break*/, 3];
+            case 2:
+                e_3 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error al obtener los eventos",
+                }));
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 router.post("/create_event", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, description, durationinhours, date, event, result, e_3;
+    var name, description, durationinhours, date, event, result, e_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -125,7 +151,7 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
                 }));
                 return [3 /*break*/, 4];
             case 3:
-                e_3 = _a.sent();
+                e_4 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error desconocido",
@@ -136,7 +162,7 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
     });
 }); });
 router.get("/get_acuerdo/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, result, e_4;
+    var id, result, e_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -154,7 +180,7 @@ router.get("/get_acuerdo/:id", function (req, res) { return __awaiter(void 0, vo
                 }));
                 return [3 /*break*/, 4];
             case 3:
-                e_4 = _a.sent();
+                e_5 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error desconocido",
@@ -165,7 +191,7 @@ router.get("/get_acuerdo/:id", function (req, res) { return __awaiter(void 0, vo
     });
 }); });
 router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, e_5;
+    var result, e_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -180,7 +206,7 @@ router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, v
                 }));
                 return [3 /*break*/, 3];
             case 2:
-                e_5 = _a.sent();
+                e_6 = _a.sent();
                 res.send(JSON.stringify({
                     error: true,
                     message: "Error al obtener la lista de acuerdos",

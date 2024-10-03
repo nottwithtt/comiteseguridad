@@ -44,6 +44,9 @@ class Controller {
     return await this.eventAdmin.checkOverlap(myevent);
   }
 
+  public async getAllEvents(){
+    return await this.eventAdmin.getAllEvents();
+  }
   public async createAcuerdo(
     numeroOrden: number,
     descripcion: string,

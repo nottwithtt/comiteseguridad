@@ -7,7 +7,26 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import MessageModal from "../components/MessageModal";
 import Button from "../components/Button";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import getDay from "date-fns/getDay";
+import enUS from "date-fns/locale/en-US";
+import { addHours } from "date-fns";
+import Event from "../components/Event";
 
+
+const locales = {
+  "en-US": enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
 
 function EventEdit() {
   const [type, setType] = useState("");
@@ -23,6 +42,8 @@ function EventEdit() {
   const [acuerdos, setAcuerdos] = useState([]);
   const [updatingAcuerdo, setUpdatingAcuerdo] = useState(false);
   const [newAcuerdoDescription, setNewAcuerdoDescription] = useState(""); // 
+  const [events, setEvents] = useState([]);
+
 
 
   useEffect(() => {
@@ -48,6 +69,16 @@ function EventEdit() {
       if (!response.error && response.result) {
         setAcuerdos(response.result);
       }
+    });
+
+    axios({
+      method: "get",
+      withCredentials: true,
+      url: BACKEND_ROUTE + "/general/get_events",
+    }).then((res) => {
+      const response = res.data;
+      const formattedEvents = formatEvents(response.result);
+      setEvents(formattedEvents);
     });
   }, [id]);
 
@@ -273,6 +304,25 @@ function EventEdit() {
     }
   };
 
+  const formatEvents = (events) => {
+    const formattedEvents = [];
+
+    for (let i = 0; i < events.length; i++) {
+      const event = events[i];
+
+      const formattedEvent = {
+        start: new Date(event.date),
+        end: addHours(new Date(event.date), event.durationinhours),
+        title: event.name,
+        url: "/view_event/" + event._id,
+      };
+
+      formattedEvents.push(formattedEvent);
+    }
+
+    return formattedEvents;
+  };
+
   const closeModal = () => {
     setShowModal(false);
     if (!error && deleting) {
@@ -289,8 +339,23 @@ function EventEdit() {
         error={error}
       ></MessageModal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-        <h4>{new Date(date).toLocaleDateString()}</h4>
-      <div style={{width: "50%"}}>
+      <div style={{width: "100%"}}>
+        <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            components={{
+              event: Event,
+            }}
+            views={['day']} 
+            defaultView="day" 
+            date={date} 
+            onNavigate={(newDate) => setDate(newDate)}
+          />
+        </div>
+      <div style={{width: "35%"}}>
         
       </div>
       <div className="mt-4 mb-4" style={{width: "50%"}}>

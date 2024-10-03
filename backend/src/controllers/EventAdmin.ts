@@ -22,6 +22,9 @@ class EventAdmin {
   public async checkOverlap(myevent: EventModel){
     return await this.eventDAO.checkOverlap(myevent);
   }
+  public async getAllEvents(){
+    return await this.eventDAO.getAllEvents();
+  }
 }
 
 export { EventAdmin };

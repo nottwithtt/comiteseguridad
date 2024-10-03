@@ -52,6 +52,7 @@ var AcuerdoAdmin = /** @class */ (function () {
             numeroOrden: acuerdo.getNumeroOrden(),
             descripcion: acuerdo.getDescripcion(),
             estado: acuerdo.getEstado(),
+            eventoId: acuerdo.getEventoId(), // Add eventoId here
         };
     };
     AcuerdoAdmin.prototype.getAcuerdo = function (id) {
@@ -67,13 +68,14 @@ var AcuerdoAdmin = /** @class */ (function () {
             });
         });
     };
-    AcuerdoAdmin.prototype.createAcuerdo = function (numeroOrden, descripcion, estado) {
+    AcuerdoAdmin.prototype.createAcuerdo = function (numeroOrden, descripcion, estado, eventoId // Add eventoId parameter
+    ) {
         return __awaiter(this, void 0, void 0, function () {
             var acuerdo, acuerdoData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        acuerdo = new Acuerdo_1.default(numeroOrden, descripcion, estado);
+                        acuerdo = new Acuerdo_1.default(numeroOrden, descripcion, estado, eventoId);
                         acuerdoData = this.convertToAcuerdoT(acuerdo);
                         return [4 /*yield*/, this.acuerdoDAO.createAcuerdo(acuerdoData)];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -83,14 +85,19 @@ var AcuerdoAdmin = /** @class */ (function () {
     };
     AcuerdoAdmin.prototype.updateAcuerdo = function (acuerdoId, numeroOrden, descripcion, estado) {
         return __awaiter(this, void 0, void 0, function () {
-            var acuerdo, acuerdoData;
+            var acuerdoData, updatedAcuerdo;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        acuerdo = new Acuerdo_1.default(numeroOrden, descripcion, estado, acuerdoId);
-                        acuerdoData = this.convertToAcuerdoT(acuerdo);
+                        acuerdoData = {
+                            numeroOrden: numeroOrden,
+                            descripcion: descripcion,
+                            estado: estado,
+                        };
                         return [4 /*yield*/, this.acuerdoDAO.updateAcuerdo(acuerdoId, acuerdoData)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 1:
+                        updatedAcuerdo = _a.sent();
+                        return [2 /*return*/, updatedAcuerdo];
                 }
             });
         });
@@ -110,6 +117,16 @@ var AcuerdoAdmin = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.acuerdoDAO.getAllAcuerdos()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    AcuerdoAdmin.prototype.getAcuerdosByEventoId = function (eventoId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoDAO.getAcuerdosByEventoId(eventoId)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });
