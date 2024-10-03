@@ -9,6 +9,7 @@ var eventSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     date: { type: Date, required: true },
+    acuerdos: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: "Acuerdo" }],
     durationinhours: { type: Number, required: true },
     dateend: { type: Date, required: true }
 });

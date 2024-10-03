@@ -5,6 +5,7 @@ import EventModel from "../models/Event";
 import { kStringMaxLength } from "buffer";
 const controller = Controller.getInstance();
 
+
 // Rutas de usuario -----------------------------------------------------------------------
 
 router.get("/check_email_exists", async (req: Request, res: Response) => {
@@ -77,5 +78,48 @@ router.post("/create_event", async (req: Request, res: Response) => {
     );
   }
 });
+
+router.get("/get_acuerdo/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await controller.getAcuerdo(id);
+    res.send(
+      JSON.stringify({
+        error: false,
+        message: "Acuerdo encontrado",
+        result: result,
+      })
+    );
+  } catch (e) {
+    res.send(
+      JSON.stringify({
+        error: true,
+        message: "Error desconocido",
+      })
+    );
+  }
+});
+
+
+router.get("/get_all_acuerdos", async (req: Request, res: Response) => {
+  try {
+    const result = await controller.getAllAcuerdos();
+    res.send(
+      JSON.stringify({
+        error: false,
+        message: "Lista de acuerdos obtenida",
+        result: result,
+      })
+    );
+  } catch (e) {
+    res.send(
+      JSON.stringify({
+        error: true,
+        message: "Error al obtener la lista de acuerdos",
+      })
+    );
+  }
+});
+
 
 module.exports = router;

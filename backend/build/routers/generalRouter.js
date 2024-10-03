@@ -135,4 +135,59 @@ router.post("/create_event", function (req, res) { return __awaiter(void 0, void
         }
     });
 }); });
+router.get("/get_acuerdo/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, result, e_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, controller.getAcuerdo(id)];
+            case 2:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Acuerdo encontrado",
+                    result: result,
+                }));
+                return [3 /*break*/, 4];
+            case 3:
+                e_4 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error desconocido",
+                }));
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+router.get("/get_all_acuerdos", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, e_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, controller.getAllAcuerdos()];
+            case 1:
+                result = _a.sent();
+                res.send(JSON.stringify({
+                    error: false,
+                    message: "Lista de acuerdos obtenida",
+                    result: result,
+                }));
+                return [3 /*break*/, 3];
+            case 2:
+                e_5 = _a.sent();
+                res.send(JSON.stringify({
+                    error: true,
+                    message: "Error al obtener la lista de acuerdos",
+                }));
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 module.exports = router;

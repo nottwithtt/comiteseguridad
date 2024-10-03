@@ -39,10 +39,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Controller = void 0;
 var UserAdmin_1 = require("./UserAdmin");
 var EventAdmin_1 = require("./EventAdmin");
+var AcuerdoAdmin_1 = require("./AcuerdoAdmin");
 var Controller = /** @class */ (function () {
     function Controller() {
         this.userAdmin = new UserAdmin_1.UserAdmin();
         this.eventAdmin = new EventAdmin_1.EventAdmin();
+        this.acuerdoAdmin = new AcuerdoAdmin_1.AcuerdoAdmin();
     }
     Controller.getInstance = function () {
         if (!Controller.instance) {
@@ -106,6 +108,66 @@ var Controller = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.eventAdmin.checkOverlap(myevent)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.createAcuerdo = function (numeroOrden, descripcion, estado) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.createAcuerdo(numeroOrden, descripcion, estado)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.updateAcuerdo = function (acuerdoId, numeroOrden, descripcion, estado) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.updateAcuerdo(acuerdoId, numeroOrden, descripcion, estado)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.deleteAcuerdo = function (acuerdoId) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.deleteAcuerdo(acuerdoId)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.getAcuerdo = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.getAcuerdo(id)];
+                    case 1: return [2 /*return*/, _a.sent()]; //
+                }
+            });
+        });
+    };
+    Controller.prototype.getAllAcuerdos = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.getAllAcuerdos()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    Controller.prototype.checkOrderNumberExists = function (numeroOrden) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.acuerdoAdmin.checkOrderNumberExists(numeroOrden)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
             });

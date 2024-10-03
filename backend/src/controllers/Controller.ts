@@ -1,11 +1,13 @@
 import { UserAdmin } from "./UserAdmin";
 import { EventAdmin } from "./EventAdmin";
+import { AcuerdoAdmin } from "./AcuerdoAdmin";
 import EventModel from "../models/Event";
 
 class Controller {
   private static instance: Controller | null = null;
   private userAdmin: UserAdmin = new UserAdmin();
   private eventAdmin: EventAdmin = new EventAdmin();
+  private acuerdoAdmin: AcuerdoAdmin = new AcuerdoAdmin();
 
   private constructor() {
   }
@@ -41,6 +43,47 @@ class Controller {
   public async checkOverlap(myevent: EventModel){
     return await this.eventAdmin.checkOverlap(myevent);
   }
+
+  public async createAcuerdo(
+    numeroOrden: number,
+    descripcion: string,
+    estado: "pendiente" | "completado",
+    eventoId: string // Add eventoId parameter
+  ) {
+    return await this.acuerdoAdmin.createAcuerdo(numeroOrden, descripcion, estado, eventoId);
+  }
+
+  public async updateAcuerdo(
+    acuerdoId: string,
+    numeroOrden: number,
+    descripcion: string,
+    estado: "pendiente" | "completado",
+
+  ) {
+    return await this.acuerdoAdmin.updateAcuerdo(acuerdoId, numeroOrden, descripcion, estado);
+  }
+
+  public async deleteAcuerdo(acuerdoId: string) {
+    return await this.acuerdoAdmin.deleteAcuerdo(acuerdoId);
+  }
+
+  public async getAcuerdo(id: string) {
+    return await this.acuerdoAdmin.getAcuerdo(id);
+  }
+
+  public async getAcuerdosByEventoId(eventoId: string) {
+    return await this.acuerdoAdmin.getAcuerdosByEventoId(eventoId);
+  }
+
+  public async getAllAcuerdos() {
+    return await this.acuerdoAdmin.getAllAcuerdos();
+  }
+
+  public async checkOrderNumberExists(numeroOrden: number) {
+    return await this.acuerdoAdmin.checkOrderNumberExists(numeroOrden);
+  }  
+
+
 
 }
 

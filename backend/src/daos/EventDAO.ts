@@ -3,41 +3,57 @@ import EventModel from "../models/Event";
 import dayjs from "dayjs";
 
 class EventDAO {
-  constructor() { }
-  // Retorna un usuario por id
+  constructor() {}
+
+
   public async getEventByID(id: string) {
-    return await Event.findOne({ _id: id });
+    return await Event.findOne({ _id: id }).populate("acuerdos"); // acuerdos
   }
+
+
   public async createEvent(myevent: EventModel) {
     return await Event.create({
-      ...myevent,
-      dateend: dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours")
+      name: myevent.getName(),
+      description: myevent.getDescription(),
+      date: myevent.getDate(),
+      durationinhours: myevent.getDurationInHours(),
+      acuerdos: myevent.getAcuerdos(), 
+      dateend: dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours").toDate(),
     });
   }
+
+
   public async updateEvent(myevent: EventModel) {
     return await Event.findByIdAndUpdate(
       myevent.getEventId(),
       {
-        ...myevent,
-        dateend: dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours")
+        name: myevent.getName(),
+        description: myevent.getDescription(),
+        date: myevent.getDate(),
+        durationinhours: myevent.getDurationInHours(),
+        acuerdos: myevent.getAcuerdos(), 
+        dateend: dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours").toDate(),
       },
       { new: true }
-    )
+    ).populate("acuerdos"); 
   }
+
   public async deleteEvent(eventid: string) {
-    return await Event.deleteOne({ _id: eventid});
+    return await Event.deleteOne({ _id: eventid });
   }
+
+
   public async checkOverlap(myevent: EventModel) {
     const mydatestart = myevent.getDate();
-    const mydateend = dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours")
+    const mydateend = dayjs(myevent.getDate()).add(myevent.getDurationInHours(), "hours");
 
-    return (await Event.find(
-      { date: {$lt: mydateend},
-        dateend: {$gt: mydatestart},
-        _id: {
-          $ne: myevent.getEventId()
-        }
-      })).length > 0;
+    return (
+      await Event.find({
+        date: { $lt: mydateend.toDate() },
+        dateend: { $gt: mydatestart },
+        _id: { $ne: myevent.getEventId() }, // Exclude the current event if updating
+      })
+    ).length > 0;
   }
 }
 
