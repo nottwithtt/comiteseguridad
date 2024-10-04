@@ -92,8 +92,7 @@ function EventView() {
   return (
     <UserWindow >
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-        <div style={{width: "50%"}}>
-          
+        <div style={{width: "45%"}}>
           <Calendar
             localizer={localizer}
             events={events}
@@ -109,7 +108,7 @@ function EventView() {
             onNavigate={(newDate) => setDate(newDate)} 
           />
         </div>
-        <div className="mt-4 mb-4" style={{width: "50%"}}>
+        <div className="mt-4 mb-4" style={{width: "45%"}}>
           {event ? (
             <div className="card">
               <div className="card-body">

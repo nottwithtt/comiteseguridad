@@ -339,26 +339,23 @@ function EventEdit() {
         error={error}
       ></MessageModal>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-      <div style={{width: "100%"}}>
-        <Calendar
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: 500 }}
-            components={{
-              event: Event,
-            }}
-            views={['day']} 
-            defaultView="day" 
-            date={date} 
-            onNavigate={(newDate) => setDate(newDate)}
-          />
+        <div style={{width: "45%"}}>
+          <Calendar
+              localizer={localizer}
+              events={events}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: 500 }}
+              components={{
+                event: Event,
+              }}
+              views={['day']} 
+              defaultView="day" 
+              date={date} 
+              onNavigate={(newDate) => setDate(newDate)}
+            />
         </div>
-      <div style={{width: "35%"}}>
-        
-      </div>
-      <div className="mt-4 mb-4" style={{width: "50%"}}>
+      <div className="mt-4 mb-4" style={{width: "45%"}}>
         <div>
           <form
             id="updateEventForm"
