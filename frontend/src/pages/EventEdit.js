@@ -57,7 +57,7 @@ function EventEdit() {
       setType(event.name);
       setDescription(event.description);
       setDate(format(new Date(event.date), "yyyy-MM-dd'T'HH:mm"));
-      setDuration(event.durationinhours);
+      setDuration(event.durationinhours);    
     });
 
     axios({
@@ -314,7 +314,7 @@ function EventEdit() {
         start: new Date(event.date),
         end: addHours(new Date(event.date), event.durationinhours),
         title: event.name,
-        url: "/view_event/" + event._id,
+        url: "/edit_event/" + event._id,
       };
 
       formattedEvents.push(formattedEvent);
