@@ -145,7 +145,7 @@ function CreateEvent() {
             form="registerEventForm"
           />
           <Link
-            to={"/calendar"}
+            to={"/scheduling"}
             className="btn btn-block fa-lg mb-4"
             style={{ backgroundColor: "#73E2A7", width: "150px" }}
           >

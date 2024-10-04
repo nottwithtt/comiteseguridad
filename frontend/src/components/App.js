@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { appContext } from "../context";
 import Protected from "./Protected";
 import Login from "../pages/Login";
+import AdminCalendarView from "../pages/AdminCalendarView";
 import CalendarView from "../pages/CalendarView";
 import EventView from "../pages/EventView";
 import EventEdit from "../pages/EventEdit";
@@ -44,6 +45,14 @@ function App() {
           element={
             <Protected ctx={ctx} loggedIn={!true} forRole={2}>
               <CalendarView />
+            </Protected>
+          }
+        />
+        <Route
+          path="/scheduling"
+          element={
+            <Protected ctx={ctx} loggedIn={!true} forRole={2}>
+              <AdminCalendarView/>
             </Protected>
           }
         />

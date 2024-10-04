@@ -326,7 +326,7 @@ function EventEdit() {
   const closeModal = () => {
     setShowModal(false);
     if (!error && deleting) {
-      window.location.href = "/calendar";
+      window.location.href = "/scheduling";
     }
   };
 

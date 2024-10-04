@@ -24,22 +24,66 @@ function AdminNavbar() {
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav me-auto mb-3 mb-lg-3">
             <li className="nav-item me-4 mt-3">
-              <Link to="/calendar" className="nav-link text-white">
+              <Link to="/scheduling" className="nav-link text-black rounded" style={{background: "white"}}>
                 Agenda
               </Link>
             </li>
           </ul>
         </div>
-        <div className="d-flex">
-          <Button
-            text="Cerrar sesión"
-            bootstrap="btn mx-2"
-            color="#73E2A7"
-            width="150px"
-            onclickHandler={logout}
-          ></Button>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav me-auto mb-3 mb-lg-3">
+            <li className="nav-item me-4 mt-3">
+              <Link to="/register_event" className="nav-link text-black rounded" style={{background: "white"}}>
+                Crear evento
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="d-flex"> 
+          <ul className="navbar-nav me-auto mb-3 mb-lg-3">
+            <li className="nav-item me-4 mt-3">
+              <Link to="/calendar" className="nav-link text-black rounded" style={{background: "white"}}>
+              Cerrar sesión
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
+      {/*<div className="container">
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav me-auto mb-3 mb-lg-3">
+            <li className="nav-item me-4 mt-3">
+              <Link to="/scheduling"
+              className="nav-link text-black rounded"
+              style={{background: "white"}}>
+                Agenda
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav me-auto mb-3 mb-lg-3">
+            <li className="nav-item me-4 mt-3">
+              <Link to="/register_event"
+              className="nav-link text-black rounded"
+              style={{background: "white"}}>
+                Crear nuevo evento
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav me-auto mb-3 mb-lg-3">
+            <li className="nav-item me-4 mt-3">
+              <Link to="/calendar"
+              className="nav-link text-black rounded"
+              style={{background: "white"}}>
+                Cerrar sesión
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>*/}
     </nav>
   );
 }
