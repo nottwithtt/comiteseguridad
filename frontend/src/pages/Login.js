@@ -60,10 +60,10 @@ function Login() {
         error={error}
       ></MessageModal>
       <div className="row d-flex justify-content-center align-items-center h-100">
-        <div className="col-xl-10">
+        <div className="col-xl-5">
           <div className="card rounded-3 text-black">
             <div className="row g-0">
-              <div className="col-lg-6">
+              <div className="lg-6">
                 <div className="card-body p-md-5 mx-md-4">
                   <div className="text-center">
                     <h1 className="mt-1 mb-5 pb-1">Inicio de Sesión</h1>
@@ -73,18 +73,20 @@ function Login() {
                     <h5 className="mt-1 mb-3 pb-1">Iniciar sesión</h5>
 
                     <div className="form-outline mb-4">
+                      <label className="form-label">Correo electrónico</label>
                       <input
                         type="email"
                         id="login_email"
                         className="form-control"
-                        placeholder="email@gmail.com"
+                        placeholder="email@example.com"
                         onChange={(e) => setEmail(e.target.value)}
                         required
                       />
-                      <label className="form-label">Correo electrónico</label>
+
                     </div>
 
                     <div className="form-outline mb-4">
+                      <label className="form-label">Contraseña</label>
                       <input
                         type="password"
                         id="login_password"
@@ -92,7 +94,6 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                       />
-                      <label className="form-label">Contraseña</label>
                     </div>
 
                     <div className="text-center pt-1 mb-5 pb-1 d-flex flex-column">
@@ -105,23 +106,24 @@ function Login() {
                     </div>
                   </form>
                 </div>
-              </div>
-              <div
-                className="col-lg-6 d-flex flex-column"
-                style={{ backgroundColor: "#FFFFFF" }}
-              >
-                <div className="px-3 py-1 mt-3">
-                  <div className="d-flex flex-column align-items-center justify-content-center pb-4">
-                    <Link
-                      to="/calendar"
-                      className="btn"
-                      style={{ backgroundColor: "#A7867D", width: "150px" }}
-                    >
-                      Regresar
-                    </Link>
+                <div
+                  className="col-lg-6 d-flex flex-column"
+                  style={{ backgroundColor: "#FFFFFF" }}
+                >
+                  <div className="px-3 py-1 mt-3">
+                    <div className="d-flex flex-column align-items-center justify-content-center pb-4">
+                      <Link
+                        to="/calendar"
+                        className="btn"
+                        style={{ backgroundColor: "#A7867D", width: "150px" }}
+                      >
+                        Regresar
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
