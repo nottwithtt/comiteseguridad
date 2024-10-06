@@ -501,7 +501,7 @@ function EventEdit() {
             form="updateEventForm"
           />
           <Link
-            to={"/view_event/" + id}
+            to={"/scheduling"}
             className="btn btn-block fa-lg mb-4"
             style={{ backgroundColor: "#73E2A7", width: "150px" }}
           >
